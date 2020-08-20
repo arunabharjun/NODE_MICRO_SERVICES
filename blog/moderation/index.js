@@ -5,15 +5,13 @@ const axios = require('axios');
 const app = express();
 app.use(bodyParser.json());
 
-app.post('/events', async (req, res) => {
-	const { type, data } = req.body;
-
+const handleEvent = (type, data) => {
 	if (type === 'CommentCreated') {
 		const status = data.content.includes('orange')
 			? 'rejected'
 			: 'approved';
 
-		await axios.post('http://localhost:4005/events', {
+		axios.post('http://localhost:4005/events', {
 			type: 'CommentModerated',
 			data: {
 				id: data.id,
@@ -23,10 +21,23 @@ app.post('/events', async (req, res) => {
 			}
 		});
 	}
+};
+
+app.post('/events', async (req, res) => {
+	const { type, data } = req.body;
+
+	await handleEvent(type, data);
 
 	res.send({});
 });
 
-app.listen(4003, () => {
+app.listen(4003, async () => {
 	console.log('[Moderation] Listening on 4003');
+	const res = await axios.get('http://localhost:4005/events');
+
+	for (let event of res.data) {
+		console.log('Processing event:', event.type);
+
+		handleEvent(event.type, event.data);
+	}
 });
