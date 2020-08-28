@@ -1,0 +1,11 @@
+@host = localhost/posts
+
+GET {{host}}
+
+###
+POST {{host}}
+Content-Type: application/json
+
+{
+    "title": "3rd post"
+}
