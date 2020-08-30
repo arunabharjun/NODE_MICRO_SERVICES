@@ -3,9 +3,9 @@
 GET {{host}}
 
 ###
-POST {{host}}
+POST {{host}}/create
 Content-Type: application/json
 
 {
-    "title": "3rd post"
+    "title": "2ng post"
 }
