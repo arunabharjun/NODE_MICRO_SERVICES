@@ -7,8 +7,10 @@ deploy:
 build:
   local:
     push: false
+  googleCloudBuild:
+    projectId: tockets-microservice-app
   artifacts:
-    - image: arunabharjun/auth
+    - image: us.gcr.io/tockets-microservice-app/auth
       context: auth
       docker:
         dockerfile: Dockerfile
