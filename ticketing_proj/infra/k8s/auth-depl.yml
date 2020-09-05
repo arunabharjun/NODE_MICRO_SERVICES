@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: arunabharjun/auth
+          image: us.gcr.io/tockets-microservice-app/auth
 ---
 # Service config
 apiVersion: v1
