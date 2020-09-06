@@ -5,6 +5,6 @@ POST {{host}}/users/signup
 Content-Type: application/json
 
 {
-    "email": "user@email.com",
-    "password":"password"
+    "email": "user",
+    "password":"p"
 }
