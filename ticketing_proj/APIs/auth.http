@@ -1,0 +1,10 @@
+@host = gcp-ticketing.dev/api
+
+# User Signup
+POST {{host}}/users/signup
+Content-Type: application/json
+
+{
+    "email": "user@email.com",
+    "password":"password"
+}
