@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 const router = express.Router();
 import { body, validationResult } from 'express-validator';
-import { RequestValidationError } from '../errors/req-validation-error';
-import { DBConnectionError } from '../errors/db-connection-error';
+import { DatabaseConnectionError } from '../errors/database-connection-error';
+import { RequestValidationError } from '../errors/request-validation-error';
 
 router.post(
 	'/api/users/signup',
@@ -16,7 +16,7 @@ router.post(
 			})
 			.withMessage('Password must be between 4 & 20 characters')
 	],
-	(req: Request, res: Response) => {
+	async (req: Request, res: Response) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			// return res.status(400).json(errors.array());
@@ -27,7 +27,7 @@ router.post(
 		// const { email, password } = req.body;
 		console.log('Creating a user');
 
-		throw new DBConnectionError();
+		throw new DatabaseConnectionError();
 		// res.json({
 		// 	info: 'Creating a user'
 		// });
