@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
     "email": "user@mail.com",
-    "password":"pqrs"
+    "password":"pqrstuv"
 }
 
 # checking 404 not found

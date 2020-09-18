@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Password } from '../services/password';
 
 /**
  * before defining a mongoose modal
@@ -47,14 +48,23 @@ const userSchema = new mongoose.Schema({
 		}
 });
 
+userSchema.pre('save', async function(done) {
+	if (this.isModified('password')) {
+		const hashed = await Password.toHash(this.get('password'));
+		this.set('password', hashed);
+	}
+	done();
+});
+
 /**
  * This is how we get a User
  */
-const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 userSchema.statics.build = (attrs: UserAttrs) => {
 	return new User(attrs);
 };
+
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 /**
  * use can use the following build method to get a new user
